@@ -61,12 +61,10 @@ void Sorting::insertionSort() {
     for (i = 1; i < size; i++)
     {
         key = data[i];
-        j = i - 1;
 
-        while (j >= 0 && data[j] > key)
+        for (j = i - 1; j >= 0 && data[j] > key; j--)
         {
             data[j + 1] = data[j];
-            j = j - 1;
         }
         data[j + 1] = key;
     }
