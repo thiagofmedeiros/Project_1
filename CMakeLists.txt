@@ -3,4 +3,4 @@ project(Project_1)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Project_1 main.cpp Parameters.cpp Parameters.h)
+add_executable(Project_1 main.cpp Parameters.cpp Parameters.h Sorting.cpp Sorting.h)

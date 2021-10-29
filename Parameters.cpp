@@ -4,12 +4,40 @@
 
 #include "Parameters.h"
 
+/*
+ *  Class that reads the parameters received from the command line
+ *  and validates them.
+ */
 Parameters::Parameters(int argc, char** argv) {
     parameterCount = argc;
     arguments = argv;
+
     validateParameters();
 }
 
+/*
+ *  Initializes class members and
+ *  Calculate if they are valid
+ */
+void Parameters::validateParameters() {
+    if (parameterCount != 4) {
+        cout << "Expecting 3 arguments and you have entered " << parameterCount
+             << " arguments:" << "\n";
+        validity = false;
+    } else {
+        sortingType = arguments[1];
+        numberElements = atoi(arguments[2]);
+        elementsType = arguments[3];
+
+        validity = validateSortingType() &&
+                   validateNumberElements() &&
+                   validateElementsType();
+    }
+}
+
+/*
+ *  Validates the sorting type
+ */
 bool Parameters::validateSortingType() {
     if (!(strcmp(sortingType, SELECTION_SORT) == 0 ||
           strcmp(sortingType, INSERTION_SORT) == 0 ||
@@ -23,6 +51,11 @@ bool Parameters::validateSortingType() {
     return true;
 }
 
+/*
+ *  Validates the number of elements.
+ *  Due to memory restrictions,
+ *  saturates number of elements at 500000.
+ */
 bool Parameters::validateNumberElements() {
     if (!(numberElements == 10000 ||
           numberElements == 20000 ||
@@ -53,6 +86,9 @@ bool Parameters::validateNumberElements() {
     return true;
 }
 
+/*
+ *  Validates the elements type
+ */
 bool Parameters::validateElementsType() {
     if (!(strcmp(elementsType, SORTED) == 0 ||
           strcmp(elementsType, CONSTANT) == 0 ||
@@ -64,22 +100,6 @@ bool Parameters::validateElementsType() {
     }
 
     return true;
-}
-
-void Parameters::validateParameters() {
-    if (parameterCount != 4) {
-        cout << "Expecting 3 arguments and you have entered " << parameterCount
-                  << " arguments:" << "\n";
-        validity = false;
-    } else {
-        sortingType = arguments[1];
-        numberElements = atoi(arguments[2]);
-        elementsType = arguments[3];
-
-        validity = validateSortingType() &&
-                   validateNumberElements() &&
-                   validateElementsType();
-    }
 }
 
 bool Parameters::isValid() const {
