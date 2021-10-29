@@ -28,12 +28,16 @@ private:
     const char *elementsType;
     bool validity = false;
 
-    void validateParameters();
+    bool validateParameters();
     bool validateSortingType();
     bool validateNumberElements();
     bool validateElementsType();
 public:
+    Parameters();
+
     Parameters(int argc, char **argv);
+
+    void setParameters(int argc, char **argv);
     bool isValid() const;
     bool isInsertionSort();
     bool isSelectionSort();
@@ -41,6 +45,10 @@ public:
     bool isElementsSorted();
     bool isElementsConstant();
     bool isElementsRandom();
+
+    void setParameterCount(int parameterCount);
+
+    void setArguments(char **arguments);
 
     int getNumberElements() const;
 };

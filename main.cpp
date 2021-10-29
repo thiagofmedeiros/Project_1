@@ -11,13 +11,13 @@ int main(int argc, char** argv) {
 
     Parameters parameters(argc, argv);
 
-    if (!parameters.isValid()) {
-        return 1;
+    Sorting sorting(argc, argv);
+
+    if (sorting.iValidParameters()) {
+        sorting.sort();
+
+        return 0;
     }
 
-    Sorting sorting(parameters);
-
-    sorting.sort();
-
-    return 0;
+    return 1;
 }

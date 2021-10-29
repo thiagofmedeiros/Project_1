@@ -8,7 +8,19 @@
  *  Class that reads the parameters received from the command line
  *  and validates them.
  */
+Parameters::Parameters() {}
+
 Parameters::Parameters(int argc, char** argv) {
+    parameterCount = argc;
+    arguments = argv;
+
+    validateParameters();
+}
+
+/*
+ *  Auxiliary function to be used when the empty constructor was used
+ */
+void Parameters::setParameters(int argc, char **argv) {
     parameterCount = argc;
     arguments = argv;
 
@@ -19,7 +31,7 @@ Parameters::Parameters(int argc, char** argv) {
  *  Initializes class members and
  *  Calculate if they are valid
  */
-void Parameters::validateParameters() {
+bool Parameters::validateParameters() {
     if (parameterCount != 4) {
         cout << "Expecting 3 arguments and you have entered " << parameterCount
              << " arguments:" << "\n";
@@ -33,6 +45,8 @@ void Parameters::validateParameters() {
                    validateNumberElements() &&
                    validateElementsType();
     }
+
+    return validity;
 }
 
 /*
@@ -57,30 +71,13 @@ bool Parameters::validateSortingType() {
  *  saturates number of elements at 500000.
  */
 bool Parameters::validateNumberElements() {
-    if (!(numberElements == 10000 ||
-          numberElements == 20000 ||
-          numberElements == 30000 ||
-          numberElements == 40000 ||
-          numberElements == 50000 ||
-          numberElements == 60000 ||
-          numberElements == 70000 ||
-          numberElements == 80000 ||
-          numberElements == 90000 ||
-          numberElements == 100000 ||
-          numberElements == 500000 ||
-          numberElements == 1000000 ||
-          numberElements == 10000000 ||
-          numberElements == 100000000 ||
-          numberElements == 1000000000
-    )) {
-        cout << "Not expecting " << numberElements
-                  << " as number of elements:" << "\n";
-        return false;
-    }
-
     if (numberElements > 500000) {
         cout << "Program only works at max 500000 number of elements:" << "\n";
         numberElements = 500000;
+    } else if (numberElements <= 0) {
+        cout << "Program only accepts number of elements greater then 0." << "\n";
+
+        return false;
     }
 
     return true;
@@ -132,4 +129,12 @@ bool Parameters::isElementsRandom() {
 
 int Parameters::getNumberElements() const {
     return numberElements;
+}
+
+void Parameters::setParameterCount(int parameterCount) {
+    Parameters::parameterCount = parameterCount;
+}
+
+void Parameters::setArguments(char **arguments) {
+    Parameters::arguments = arguments;
 }

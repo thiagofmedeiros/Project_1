@@ -9,29 +9,33 @@
  *  Sorts data according to selected algorithm and
  *  Checks if it was correctly sorted
  */
-Sorting::Sorting(Parameters parameters) {
-    size = parameters.getNumberElements();
+Sorting::Sorting(int argc, char **argv) {
+    parameters.setParameters(argc, argv);
 
-    if (parameters.isElementsConstant()) {
-        for (int i = 0; i < size; ++i) {
-            data[i] = 0;
-        }
-    } else if (parameters.isElementsRandom()) {
-        for (int i = 0; i < size; ++i) {
-            data[i] = rand();
-        }
-    } else if (parameters.isElementsSorted()) {
-        for (int i = 0; i < size; ++i) {
-            data[i] = i;
-        }
-    }
+    if (parameters.isValid()) {
+        size = parameters.getNumberElements();
 
-    if (parameters.isSelectionSort()) {
-        algorithmName = SELECTION_SORT_NAME;
-    } else if (parameters.isInsertionSort()) {
-        algorithmName = INSERTION_SORT_NAME;
-    } else if (parameters.isQuickSort()) {
-        algorithmName = QUICKSORT_NAME;
+        if (parameters.isElementsConstant()) {
+            for (int i = 0; i < size; ++i) {
+                data[i] = 0;
+            }
+        } else if (parameters.isElementsRandom()) {
+            for (int i = 0; i < size; ++i) {
+                data[i] = rand();
+            }
+        } else if (parameters.isElementsSorted()) {
+            for (int i = 0; i < size; ++i) {
+                data[i] = i;
+            }
+        }
+
+        if (parameters.isSelectionSort()) {
+            algorithmName = SELECTION_SORT_NAME;
+        } else if (parameters.isInsertionSort()) {
+            algorithmName = INSERTION_SORT_NAME;
+        } else if (parameters.isQuickSort()) {
+            algorithmName = QUICKSORT_NAME;
+        }
     }
 }
 
@@ -164,7 +168,7 @@ void Sorting::sort() {
     double start = get_cpu_time();
     double end;
 
-    if (algorithmName == SELECTION_SORT_NAME) {
+    if (parameters.isSelectionSort()) {
         time = chrono::system_clock::to_time_t(chrono::system_clock::now());
 
         cout << "<call_sort> " << ctime(&time);
@@ -172,7 +176,7 @@ void Sorting::sort() {
         start = get_cpu_time();
 
         selectionSort();
-    } else if (algorithmName == INSERTION_SORT_NAME) {
+    } else if (parameters.isInsertionSort()) {
         time = chrono::system_clock::to_time_t(chrono::system_clock::now());
 
         cout << "<call_sort> " << ctime(&time);
@@ -180,7 +184,7 @@ void Sorting::sort() {
         start = get_cpu_time();
 
         insertionSort();
-    } else if (algorithmName == QUICKSORT_NAME) {
+    } else if (parameters.isQuickSort()) {
         time = chrono::system_clock::to_time_t(chrono::system_clock::now());
 
         cout << "<call_sort> " << ctime(&time);
@@ -205,4 +209,8 @@ void Sorting::sort() {
     } else {
         cout << "Data incorrectly sorted after running " << algorithmName << ".\n";
     }
+}
+
+bool Sorting::iValidParameters() {
+    return parameters.isValid();
 }

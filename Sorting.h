@@ -15,6 +15,7 @@
 
 class Sorting {
 private:
+    Parameters parameters;
     int size;
     int data[500000]{};
     string algorithmName;
@@ -24,8 +25,9 @@ private:
     int medianOfThreePartition(int start, int end);
     bool verifySorting();
 public:
-    explicit Sorting(Parameters parameters);
+    Sorting(int argc, char **argv);
 
+    bool iValidParameters();
     void sort();
 };
 
