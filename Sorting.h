@@ -1,5 +1,5 @@
 //
-// Created by mirdo on 10/28/2021.
+// Created by Thiago André Ferreira Medeiros on 10/28/2021.
 //
 
 #ifndef PROJECT_1_SORTING_H
