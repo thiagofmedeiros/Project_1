@@ -4,14 +4,21 @@
 ### Environment
 #### Hardware
 PROCESSOR INTEL I9-9900K
+
 32 GB DDR4 2666MHZ
+
 GPU RTX 2080TI
+
 GPU RTX 3090cd
+
 SSD 1TB INTEL 660P SERIES M2
 #### Software
 OS Windows 11 Pro
-Compiler CLION
+
+IDE JetBrains CLION
+
 Toolchain Mingw-w64 8.1.0
+
 Language C++ 14
 
 ### How to run
